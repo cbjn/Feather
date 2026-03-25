@@ -122,14 +122,30 @@ struct LibraryView: View {
 							Label(.localized("No Apps"), systemImage: "questionmark.app.fill")
 						} description: {
 							Text(.localized("Get started by importing your first IPA file."))
-						} actions: {
-							Menu {
-								_importActions()
-							} label: {
-								NBButton(.localized("Import"), style: .text)
-							}
 						}
 					}
+				}
+			}
+			.overlay(alignment: .bottomTrailing) {
+				if !_editMode.isEditing {
+					Menu {
+						_importActions()
+					} label: {
+						ZStack {
+							Circle()
+								.fill(Color.accentColor)
+								.shadow(radius: 4, x: 0, y: 4)
+							Image(systemName: "plus")
+								.font(.system(size: 18, weight: .bold))
+								.foregroundStyle(Color.white)
+						}
+						.frame(width: 52, height: 52)
+						.contentShape(Circle())
+					}
+					.buttonStyle(.plain)
+					.accessibilityLabel(.localized("Import"))
+					.padding(.trailing, 16)
+					.padding(.bottom, 16)
 				}
 			}
 			.toolbar {
